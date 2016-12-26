@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  {% block head %}
+    {% include 'includes/head.twig' %}
+  {% endblock %}
+
+  <title>{{ title }}</title>
+
+  {% block styles %}{% endblock %}
+  {# {% include 'includes/analytic.twig' %} #}
+</head>
+<body>
+  {% block root_content %}{% endblock %}
+
+  {% block javascript %}{% endblock %}
+</body>
+</html>

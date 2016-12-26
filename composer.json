@@ -1,0 +1,20 @@
+{
+  "name": "nodb-website",
+  "description": "Projeto de desenvolvimento de websites em PHP sem uso de SGDB.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Iosley Carlos",
+      "email": "iosley@outlook.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "slim/slim": "^3.1",
+    "monolog/monolog": "^1.17",
+    "slim/twig-view": "^2.1",
+    "twig/extensions": "^1.3",
+    "phpmailer/phpmailer": "~5.2",
+    "bes/mobiledetect-twig-extension": "^1.0"
+  }
+}
