@@ -70,9 +70,9 @@ call_user_func(function() use ($app) {
     }
 
     $template = is_file(__dir__ . "/../pages/{$template}.twig")
-      ? __dir__ . "/../pages/{$template}.twig"
+      ? "{$template}.twig"
       : is_file(__dir__ . "/../pages/{$args['page']}/{$template}.twig")
-      ? __dir__ . "/../pages/{$args['page']}/{$template}.twig"
+      ? "{$args['page']}/{$template}.twig"
       : NULL;
 
     if ( empty($template) ) {
