@@ -56,6 +56,12 @@ $container['crud'] = function ($c) {
   return $crud;
 };
 
+$container['notFoundHandler'] = function ($c) {
+  return function ($request, $response) use ($c) {
+    return $c->view->render($response->withStatus(404), "layouts/404.twig");
+  };
+};
+
 $container['errorHandler'] = function ($c) {
   return function ($request, $response) use ($c) {
     return $c->view->render($response->withStatus(500), "layouts/500.twig");
