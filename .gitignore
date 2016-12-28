@@ -1,7 +1,7 @@
 # Deploy
 ######################
-src/public/*
-!src/public/index.php
+public/*
+!public/index.php
 
 # Composer
 ######################
