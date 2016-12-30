@@ -25,7 +25,7 @@ call_user_func(function($app) {
         throw new \Slim\Exception\NotFoundException($request, $response);
       }
 
-      return $this->view->render($response, "index.twig", (array) $data);
+      return $this->view->render($response, $template, (array) $data);
     });
   }
 
