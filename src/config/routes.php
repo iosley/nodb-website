@@ -34,7 +34,6 @@ call_user_func(function() use ($app) {
 
     $data['site'] = $this->crud['read']('site');
     $data['page'] = $this->crud['read']($args['page']);
-    $data['raiz'] = $slug($args['page']);
 
     $template = $args['page'];
     if ( isset($args['params']) && is_numeric($args['params']) || (! empty($args['params']) && ! empty($data['page'])) ) {
