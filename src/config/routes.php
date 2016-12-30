@@ -9,17 +9,17 @@ call_user_func(function($app) {
 
   /** Rota index */
   if (!is_file(__DIR__ . '/../pages/index.route.php') && !is_file(__DIR__ . '/../pages/index/index.route.php')) {
-    $app->get('[/]', function(Request $request, Response $response, $args = []) {
+    $app->get('[/]', function(Request $request, Response $response, $args = []) use ($fill) {
       $data["site"] = $this->crud['read']('site');
       $data["page"] = $this->crud['read']('index');
 
       $template = is_file(__dir__ . "/../pages/index.twig")
         ? "index.twig"
-        : is_file(__dir__ . "/../pages/index/index.twig")
-        ? "index/index.twig"
-        : NULL;
+        : (is_file(__dir__ . "/../pages/index/index.twig")
+          ? "index/index.twig"
+          : NULL);
 
-      $data = $fill($data, $this->crud['read']);
+      $data = $fill($data);
 
       if ( empty($template) ) {
         throw new \Slim\Exception\NotFoundException($request, $response);
@@ -74,9 +74,9 @@ call_user_func(function($app) {
 
     $template = is_file(__dir__ . "/../pages/{$template}.twig")
       ? "{$template}.twig"
-      : is_file(__dir__ . "/../pages/{$args['page']}/{$template}.twig")
-      ? "{$args['page']}/{$template}.twig"
-      : NULL;
+      : (is_file(__dir__ . "/../pages/{$args['page']}/{$template}.twig")
+        ? "{$args['page']}/{$template}.twig"
+        : NULL);
 
       $data = $fill($data, $this->crud['read']);
 
