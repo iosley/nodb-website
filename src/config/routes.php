@@ -2,8 +2,10 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-call_user_func(function() use ($app) {
+
+call_user_func(function($app) {
   $getRoutes = require __DIR__ . '/../libs/getRoutes.php';
+  $fill = require __DIR__ . '/../libs/autoFill.php';
 
   /** Rota index */
   if (!is_file(__DIR__ . '/../pages/index.route.php') && !is_file(__DIR__ . '/../pages/index/index.route.php')) {
@@ -17,6 +19,8 @@ call_user_func(function() use ($app) {
         ? "index/index.twig"
         : NULL;
 
+      $data = $fill($data, $this->crud['read']);
+
       if ( empty($template) ) {
         throw new \Slim\Exception\NotFoundException($request, $response);
       }
@@ -29,7 +33,7 @@ call_user_func(function() use ($app) {
   $getRoutes($app, __DIR__ . '/../pages/');
 
   /** Rotas automaticas (default) */
-  $app->get('/{page}[/[{params:.*}[/]]]', function(Request $request, Response $response, Array $args = []) {
+  $app->get('/{page}[/[{params:.*}[/]]]', function(Request $request, Response $response, Array $args = []) use ($fill) {
     $slug = require __dir__ . '/../libs/slug.php';
 
     $data['site'] = $this->crud['read']('site');
@@ -73,6 +77,8 @@ call_user_func(function() use ($app) {
       : is_file(__dir__ . "/../pages/{$args['page']}/{$template}.twig")
       ? "{$args['page']}/{$template}.twig"
       : NULL;
+
+      $data = $fill($data, $this->crud['read']);
 
     if ( empty($template) ) {
       throw new \Slim\Exception\NotFoundException($request, $response);
@@ -151,4 +157,4 @@ call_user_func(function() use ($app) {
 
     return $this->view->render($response, $template, (array) $data);
   });
-});
+}, $app);
